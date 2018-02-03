@@ -2,3 +2,4 @@ sqlalchemy
 requests
 bs4
 hug
+gunicorn

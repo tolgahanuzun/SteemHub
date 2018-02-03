@@ -60,6 +60,8 @@ def user_details(name: hug.types.text, hug_timer=3):
         user.name = name
         user.body = text
         user.date = datetime.now()
+        session_factory.add(user)
+        session_factory.commit()
 
     return {'result': result,
             'took': float(hug_timer)}
