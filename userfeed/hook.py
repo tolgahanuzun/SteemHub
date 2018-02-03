@@ -13,7 +13,7 @@ def hook_activity(username):
     hook_parse = BeautifulSoup(hook.text, 'html.parser')
     datas = hook_parse.find('div', {"class": "col-md-8"})
     html_result = []
-    #import ipdb; ipdb.set_trace()
+
     for data in datas.find_all('div', {"class": "op"})[:30]:
         find_data = data.find('span')
         if not find_data.find('table'):
@@ -27,7 +27,7 @@ def hook_activity(username):
                 permalink = find_data.find('table').contents[1].find('span').text
                 result_url = '@{}/{}'.format(author, permalink)
                 result_html = '<a href="{}">{}</a>'.format(result_url, permalink)
-                html_result.append(find_data.contents[1].text + parse_comment + result_html)
+                html_result.append(find_data.contents[1].text + ' comment ' + result_html)
             else:
                 pass
     return html_result
@@ -37,7 +37,11 @@ def hook(name):
 
     result = []
     for data in datas:
-        result.append(str(data).replace('href="/','href="https://steemit.com/'))
+        if str(data) == '<span class="tag tag-virt">virtual</span>':
+            pass
+        else:
+            result.append(str(data).replace('href="/', 'href="https://steemit.com/'))
+        
     return result
     
 
