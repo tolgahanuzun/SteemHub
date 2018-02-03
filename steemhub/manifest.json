@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "Steemhub by Tolgahan Üzün",
+  "version": "0.1",
+  "description": "Steemhub Activity.",
+
+  "browser_action": {
+    "default_icon": "logo.png"
+  },
+
+    "chrome_url_overrides": {
+      "newtab": "steemhub.html"
+    },
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "geolocation",
+    "https://ajax.googleapis.com/",
+    "https://*/*",
+    "http://*/*"
+  ]
+}
+
