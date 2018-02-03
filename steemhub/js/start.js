@@ -1,5 +1,8 @@
 var core = new momentum.Core();
 var usurname = 'tolgahanuzun';
+var server_url = 'http://159.65.21.161:2000'
+
+
 core.start();
 	// I want to run the time update and rendering every second
 setInterval(function() {
@@ -30,7 +33,7 @@ chrome.storage.sync.get('names', function(val){
     
 var xmlHttp = new XMLHttpRequest();
 username = val['names'].split(';').reverse()[1];
-xmlHttp.open( "GET", 'http://127.0.0.1:8000/user_details?name='+username , false ); // false for synchronous request
+xmlHttp.open( "GET", server_url + '/user_details?name='+username , false ); // false for synchronous request
 xmlHttp.send( null );
 
 data = JSON.parse(xmlHttp.responseText)
