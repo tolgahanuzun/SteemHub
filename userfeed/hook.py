@@ -43,5 +43,10 @@ def hook(name):
             result.append(str(data).replace('href="/', 'href="https://steemit.com/'))
         
     return result
+
+def feed_list(username):
+    url = 'https://api.steemjs.com/get_account_history?account={}&from=100000&limit=100'
+    username_feed = url.format(username)
+    return requests.get(username_feed).json()
     
 
