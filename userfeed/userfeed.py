@@ -30,41 +30,66 @@ Base.metadata.create_all(bind=engine)
 
 
 @hug.cli()
-@hug.get(examples='name=tolgahanuzun')
-def user_details(name: hug.types.text, hug_timer=3):
-    """User Details"""
+@hug.get(examples='name=tolgahanuzun&vote=True&follow=True&post=True&transfer=True')
+def user_details(name: hug.types.text,
+                vote: hug.types.text,
+                follow: hug.types.text,
+                post: hug.types.text,
+                transfer: hug.types.text,
+                hug_timer=3):
 
-    user = session_factory.query(Model).filter_by(name=name).all()
-    if user:
-        last_update = datetime.now() - user[0].date
-        
-        if last_update.seconds / 60 > 10:
-            text = ''
-            result = hook.hook(name)
-            for hooks in result:
-                text = text + ':::::' + hooks
-            user[0].body = text
-            user[0].date = datetime.now()
-            session_factory.add(user[0])
-            session_factory.commit()
-        else:
-            result = user[0].body.split(':::::')[1:]
+    status = {
+        'vote' = vote,
+        'custom_json'= follow,
+        'comment' = post,
+        'transfer' = transfer,
+        'curation_reward' = True,
+        'claim_reward_balance' = True,
+        'author_reward' = True,
 
-    else:
-        text = ''
-        result = hook.hook(name)
-        for hooks in result:
-            text = text + ':::::' + hooks
+    }
 
-        user = Model()
-        user.name = name
-        user.body = text
-        user.date = datetime.now()
-        session_factory.add(user)
-        session_factory.commit()
-
-    return {'result': result,
-            'took': float(hug_timer)}
+    feed_lists = hook.feed_list(name)
+    new_list = []
+    for feed in feed_lists:
+        new_list.append(feed[1]['op'])
+    return new_list
 
 if __name__ == '__main__':
     user_details.interface.cli()
+
+
+
+#  """User Details"""
+
+#     user = session_factory.query(Model).filter_by(name=name).all()
+#     if user:
+#         last_update = datetime.now() - user[0].date
+        
+#         if last_update.seconds / 60 > 10:
+#             text = ''
+#             result = hook.hook(name)
+#             for hooks in result:
+#                 text = text + ':::::' + hooks
+#             user[0].body = text
+#             user[0].date = datetime.now()
+#             session_factory.add(user[0])
+#             session_factory.commit()
+#         else:
+#             result = user[0].body.split(':::::')[1:]
+
+#     else:
+#         text = ''
+#         result = hook.hook(name)
+#         for hooks in result:
+#             text = text + ':::::' + hooks
+
+#         user = Model()
+#         user.name = name
+#         user.body = text
+#         user.date = datetime.now()
+#         session_factory.add(user)
+#         session_factory.commit()
+
+#     return {'result': result,
+#             'took': float(hug_timer)}
