@@ -19,21 +19,35 @@ setInterval(function() {
 
 
 $("#save").click(function(){
-var obj = {}; 
-var account = document.getElementById('git-account').value+";";   
-var surname = document.getElementById('surname').value+";";   
+var obj = {};  
+var surname = document.getElementById('steemit').value
+var vote = document.getElementById('vote').checked
+var follow = document.getElementById('follow').checked
+var post = document.getElementById('post').checked
+var transfer = document.getElementById('transfer').checked
+
     
-chrome.storage.sync.set({'names': account});
+
 chrome.storage.sync.set({'surname': surname});
         
+chrome.storage.sync.set({
+  'surname': surname,
+  'vote': vote,
+  'follow': follow,
+  'post': post,
+  'transfer': transfer
 });
 
+})
 
-chrome.storage.sync.get('names', function(val){
-    
+chrome.storage.sync.get(['surname','vote','follow','post','transfer'], function(val){
 var xmlHttp = new XMLHttpRequest();
-username = val['names'].split(';').reverse()[1];
-xmlHttp.open( "GET", server_url + '/user_details?name='+username , false ); // false for synchronous request
+text = '/user_details?name=' + val['surname'] + '&vote=' + val['vote'] + '&follow=' + val['follow']
+text = text + '&post=' + val['post'] + '&transfer=' +val['transfer']
+
+get_url = server_url + text
+console.log(get_url)
+xmlHttp.open( "GET", get_url , false ); // false for synchronous request
 xmlHttp.send( null );
 
 data = JSON.parse(xmlHttp.responseText)
