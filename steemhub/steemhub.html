@@ -29,12 +29,34 @@
 	<div id="modal1" class="modal " style="z-index:2001;box-shadow:none;background-color:transparent;" >
         <div class="col offset-s3 offset-m3 s6 m6">
           <div class="card blue-grey darken-3">
-            <div class="card-content white-text">
+            <div class="card-content white-text ">
             <span class="card-title">Steem Settings</span>
 			<label>Name Surname</label><input type="text" class="validate" name='surname' id="surname"> 
-			<label>Steemit Account Name</label><input type="text" class="validate" name='git-account' id="git-account"> 
-			<button id="save" class="btn waves-effect waves-light modalc" id='modal1' >Save</button> 
-			<button id="close" class="btn waves-effect waves-light right modalc" id='modal1'>Close</button> 
+			<label>Steemit Account Name</label><input type="text" class="validate" name='steemit' id="steemit"> 
+			
+			<fieldset>
+				<legend>Filter Type</legend>
+				<div>
+					<input type="checkbox" id="vote" name="vote">
+					<label for="vote">Vote</label>
+				</div>
+				<div>
+					<input type="checkbox" id="follow" name="follow">
+					<label for="follow">Follow</label>
+				</div>
+				<div>
+					<input type="checkbox" id="post" name="post">
+					<label for="post">Comment</label>
+				</div>
+				<div>
+					<input type="checkbox" id="transfer" name="transfer" value="transfer">
+					<label for="transfer">Transfer</label>
+				</div>
+					
+			</fieldset>
+					
+			<button  id="save" class="btn waves-effect waves-light modalc" id='modal1' >Save</button> 
+			<button  id="close" class="btn waves-effect waves-light right modalc" id='modal1'>Close</button> 
 			</div>
           </div>
         </div>
