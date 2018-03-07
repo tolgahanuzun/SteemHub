@@ -1,6 +1,6 @@
 var core = new momentum.Core();
 var usurname = 'tolgahanuzun';
-var server_url = 'http://159.65.21.161:2000'
+var server_url = 'http://159.65.21.161:2001'
 
 
 core.start();
